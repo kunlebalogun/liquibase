@@ -38,6 +38,8 @@ jobs:
     - name: Run status Check
     - uses: liquibase-github-actions/status@v4.25.1      
       with:
+         operation: 'status'
+         classpath: 'database/sql'
          changelogFile: env.LIQUIBASE_COMMAND_CHANGELOG_FILE
          url: ${{ secrets.LIQUIBASE_URL }}
          headless: true
