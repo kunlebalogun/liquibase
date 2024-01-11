@@ -23,5 +23,5 @@ jobs:
     - name: Run 'Liquibase status' in a Docker Container	    
       uses: docker://liquibase/liquibase:latest
       with:
-        args: --url=${{ secrets.LIQUIBASE_URL }} --changeLogFile=env.LIQUIBASE_COMMAND_CHANGELOG_FILE --username=${{ secrets.LIQUIBASE_USERNAME }} --password=${{ secrets.LIQUIBASE_PASSWORD }} status --verbose
+        args: --url=${{ secrets.LIQUIBASE_URL }} --changeLogFile=db.changelog-root.xml --username=${{ secrets.LIQUIBASE_USERNAME }} --password=${{ secrets.LIQUIBASE_PASSWORD }} status --verbose
     
