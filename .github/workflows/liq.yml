@@ -2,6 +2,10 @@ name: Liquibase_Docker_GitHub-Hosted
 
 on: [push]
 
+env:
+    LB_ENVIRONMENT: DEV
+    LIQUIBASE_COMMAND_CHANGELOG_FILE: db.changelog-root.xml
+    LIQUIBASE_COMMAND_TAG: ${{ github.run_number }}
 # on:
 #  workflow_dispatch:
 #   push:
