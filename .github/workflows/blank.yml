@@ -1,0 +1,46 @@
+name: Liquibase-Postgres-Migration
+
+###
+### Pipelines can be triggered manually or via events
+###
+on:
+  - push
+
+###
+### Set Liquibase environment variables
+###
+env:
+    LB_ENVIRONMENT: DEV
+    LIQUIBASE_COMMAND_CHANGELOG_FILE: db.changelog-root.xml
+    LIQUIBASE_COMMAND_TAG: ${{ github.run_number }}
+###
+### These values should be pulled from GitHub secrets
+### Secrets should include LIQUIBASE_COMMAND_URL, LIQUIBASE_COMMAND_USERNAME, LIQUIBASE_COMMAND_PASSWORD, LIQUIBASE_LICENSE_KEY
+###
+    LIQUIBASE_COMMAND_URL: ${{ secrets.LIQUIBASE_URL }}
+    LIQUIBASE_COMMAND_USERNAME: ${{ secrets.LIQUIBASE_USERNAME }}
+    LIQUIBASE_COMMAND_PASSWORD: ${{ secrets.LIQUIBASE_PASSWORD }}
+    LIQUIBASE_LICENSE_KEY: ${{ secrets.LIQUIBASE_KEY }}
+
+jobs:
+  liquibase:
+###
+### Update agent location
+###
+    runs-on: ubuntu-latest
+
+###
+### Checkout repository
+###
+	steps:
+	  - name: Checking out repository
+	  - uses: actions/checkout@v3
+   
+	  - name: Run status Check
+	  - uses: liquibase-github-actions/status@v4.25.1
+	    with:
+		  changelogFile: env.LIQUIBASE_COMMAND_CHANGELOG_FILE
+		  url: ${{ secrets.LIQUIBASE_URL }}
+		  headless: true
+		  licenseKey: ${{ secrets.LIQUIBASE_LICENSE_KEY }}
+		  logLevel: INFO
