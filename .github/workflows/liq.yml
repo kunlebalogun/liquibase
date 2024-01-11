@@ -31,7 +31,7 @@ jobs:
           logLevel: INFO
 
     - name: Run 'Update' against database	    
-      uses: liquibase-github-actions/validate@v4.25.1
+      uses: liquibase-github-actions/update@v4.25.1
       with:   
           classpath: 'database/sql'
           changeLogFile: 'db.changelog-root.xml'
