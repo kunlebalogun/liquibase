@@ -43,5 +43,5 @@ jobs:
          changelogFile: env.LIQUIBASE_COMMAND_CHANGELOG_FILE
          url: ${{ secrets.LIQUIBASE_URL }}
          headless: true
-         licenseKey: ${{ secrets.LIQUIBASE_LICENSE_KEY }}
+         ##licenseKey: ${{ secrets.LIQUIBASE_LICENSE_KEY }}
          logLevel: INFO
