@@ -1,0 +1,23 @@
+name: Liquibase_Docker_GitHub-Hosted
+
+on: [push]
+
+# on:
+#  workflow_dispatch:
+#   push:
+#     branches: [ main ]
+#   pull_request:
+#     branches: [ main ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  LBJobDockerCLI:
+    runs-on: ubuntu-latest
+    steps: 
+    - uses: actions/checkout@v2
+# note the below assumes that a host path or volume is mounted into the container at ./Docker (or action will fail) !!!
+    - name: Run 'Liquibase status' in a Docker Container	    
+      uses: docker://liquibase/liquibase:latest
+      with:
+        args: --url=${{ secrets.LIQUIBASE_URL }} --changeLogFile=env.LIQUIBASE_COMMAND_CHANGELOG_FILE --username=${{ secrets.LIQUIBASE_USERNAME }} --password=${{ secrets.LIQUIBASE_PASSWORD }} status --verbose
+    
