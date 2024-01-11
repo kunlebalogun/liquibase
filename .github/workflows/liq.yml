@@ -15,19 +15,38 @@ env:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  LBJobDockerCLI:
+  LIQUIBASE:
     runs-on: ubuntu-latest
     steps: 
     - uses: actions/checkout@v3
-# note the below assumes that a host path or volume is mounted into the container at ./Docker (or action will fail) !!!
-    - name: Run 'Liquibase status' in a Docker Container	    
-      uses: liquibase-github-actions/validate@v4.25.1
-      with:
-        
+
+    - name: Run 'Status' to validate connection	    
+      uses: liquibase-github-actions/status@v4.25.1
+      with:   
           classpath: 'database/sql'
           changeLogFile: 'db.changelog-root.xml'
           username: ${{ secrets.LIQUIBASE_USERNAME }}
           password: ${{ secrets.LIQUIBASE_PASSWORD }}
           url: ${{ secrets.LIQUIBASE_URL }}
-          
+          logLevel: INFO
+
+    - name: Run 'validate SQL'	    
+      uses: liquibase-github-actions/validate@v4.25.1
+      with:   
+          classpath: 'database/sql'
+          changeLogFile: 'db.changelog-root.xml'
+          username: ${{ secrets.LIQUIBASE_USERNAME }}
+          password: ${{ secrets.LIQUIBASE_PASSWORD }}
+          url: ${{ secrets.LIQUIBASE_URL }}
+          logLevel: INFO
+
+    - name: Run 'History'	    
+      uses: liquibase-github-actions/history@v4.25.1
+      with:    
+          classpath: 'database/sql'
+          changeLogFile: 'db.changelog-root.xml'
+          username: ${{ secrets.LIQUIBASE_USERNAME }}
+          password: ${{ secrets.LIQUIBASE_PASSWORD }}
+          url: ${{ secrets.LIQUIBASE_URL }}
+          logLevel: INFO
  
