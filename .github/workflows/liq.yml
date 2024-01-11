@@ -35,6 +35,8 @@ jobs:
       with:   
           classpath: 'database/sql'
           changeLogFile: 'db.changelog-root.xml'
+          username: ${{ secrets.LIQUIBASE_USERNAME }}
+          password: ${{ secrets.LIQUIBASE_PASSWORD }}
           url: ${{ secrets.LIQUIBASE_URL }}
           logLevel: INFO
 
