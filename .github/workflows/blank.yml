@@ -33,12 +33,10 @@ jobs:
 ### Checkout repository
 ###
     steps:
-    - name: Checking out repository
     - uses: actions/checkout@v3
     
     - name: Run status Check
-    - uses: liquibase-github-actions/status@v4.25.1
-       
+    - uses: liquibase-github-actions/status@v4.25.1      
       with:
          changelogFile: env.LIQUIBASE_COMMAND_CHANGELOG_FILE
          url: ${{ secrets.LIQUIBASE_URL }}
