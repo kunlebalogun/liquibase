@@ -28,10 +28,6 @@ jobs:
 ### Update agent location
 ###
     runs-on: ubuntu-latest
-
-###
-### Checkout repository
-###
     steps:
     - uses: actions/checkout@v2
     
