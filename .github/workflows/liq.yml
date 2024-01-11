@@ -21,7 +21,12 @@ jobs:
     - uses: actions/checkout@v3
 # note the below assumes that a host path or volume is mounted into the container at ./Docker (or action will fail) !!!
     - name: Run 'Liquibase status' in a Docker Container	    
-      uses: docker://liquibase/liquibase:latest
+      uses: liquibase/liquibase-github-action@v2
       with:
-        args: --url=${{ secrets.LIQUIBASE_URL }} --changeLogFile=db.changelog-root.xml --username=${{ secrets.LIQUIBASE_USERNAME }} --password=${{ secrets.LIQUIBASE_PASSWORD }} updateSQL 
-    
+        
+          operation: 'updateSQL'
+          changeLogFile: 'db.changelog-root.xml'
+          username: ${{ secrets.LIQUIBASE_USERNAME }}
+          password: ${{ secrets.LIQUIBASE_PASSWORD }}
+          url: ${{ secrets.LIQUIBASE_URL }}
+ 
